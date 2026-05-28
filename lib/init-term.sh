@@ -102,7 +102,7 @@ function ble/init:term/initialize {
   ble/init:term/define-cap.2 _ble_term_ind $'\n' ind:sf # $'\eD'
   ble/init:term/define-cap   _ble_term_ri  ''    ri:sr  # $'\eM'
   ble/init:term/define-cap   _ble_term_cr  $'\r' cr:cr
-  if [[ $OSTYPE == msys && ! $_ble_term_CR ]]; then # msys-1.0
+  if ble/base/is-msys1; then
     [[ $_ble_term_cr ]] || _ble_term_cr=$'\e[G'
     if [[ $TERM == cygwin ]]; then
       [[ $_ble_term_ind == $'\eD' ]] && _ble_term_ind=$'\n'

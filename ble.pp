@@ -787,13 +787,25 @@ function ble/variable#load-user-state/variable:LANG {
 
 { ble/base/adjust-bash-options; } &>/dev/null # set -x 対策 #D0930
 
+function ble/base/is-msys {
+  # Note (#D2404): For some reason, msys-2.0 started to report OSTYPE=cygwin
+  # even though it is not a normal Cygwin environment.  We need to check the
+  # existence of msys-2.0.dll to distinguish it from the proper Cygwin.
+  [[ $OSTYPE == msys || $OSTYPE == cygwin && -x /bin/msys-2.0.dll ]]
+}
+
+function ble/base/is-msys1 {
+  local cr; cr=$'\r'
+  [[ $OSTYPE == msys && ! $cr ]]
+}
+
 function ble/init/force-load-inputrc {
   builtin unset -f "$FUNCNAME"
 
   builtin bind &>/dev/null # force to load .inputrc
 
   # WA #D1534 workaround for msys2 .inputrc
-  if [[ $OSTYPE == msys* ]]; then
+  if ble/base/is-msys; then
     local bind_emacs
     ble/util/assign bind_emacs 'builtin bind -m emacs -p 2>/dev/null'
     [[ $'\n'$bind_emacs$'\n' == *$'\n"\\C-?": backward-kill-line\n' ]] &&
@@ -1604,11 +1616,6 @@ function ble/bin/awk0.available {
 
   function ble/bin/awk0.available { return 1; }
   return 1
-}
-
-function ble/base/is-msys1 {
-  local cr; cr=$'\r'
-  [[ $OSTYPE == msys && ! $cr ]]
 }
 
 function ble/base/is-wsl {

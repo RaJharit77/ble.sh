@@ -61,7 +61,7 @@ ble/test/start-section 'ble/main' 29
 
 # ble/util/readlink
 (
-  if [[ $OSTYPE == msys* ]]; then
+  if ble/base/is-msys; then
     export MSYS=${MSYS:+$MSYS }winsymlinks
   fi
 

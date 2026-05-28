@@ -2584,9 +2584,9 @@ function ble/complete/source:command/.print-command {
       # https://github.com/akinomyoga/ble.sh/issues/96
       # https://github.com/akinomyoga/ble.sh/pull/504
       slow_compgen=1
-    elif [[ $OSTYPE == cygwin* ]]; then
+    elif [[ $OSTYPE == cygwin* || $OSTYPE == msys* ]]; then
       case $COMPV in
-      (?|cy*|x8*|i6*)
+      (?|cy*|x8*|i6*|msy*)
         slow_compgen=1 ;;
       esac
     fi

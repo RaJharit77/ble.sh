@@ -1007,7 +1007,17 @@ function ble/prompt/initialize {
     _ble_prompt_const_root='$'
   fi
 
-  if [[ $OSTYPE == cygwin* ]]; then
+  if ble/base/is-msys; then
+    # msys64/etc/bash.bashrc に倣う
+    if ble/bin#has id getent; then
+      local id getent
+      ble/util/assign id 'id -G'
+      ble/util/assign getent 'getent -w group S-1-16-12288'
+      ble/string#split getent : "$getent"
+      [[ " $id " == *" ${getent[1]} "* ]] &&
+        _ble_prompt_const_root='#'
+    fi
+  elif [[ $OSTYPE == cygwin* ]]; then
     local windir=/cygdrive/c/Windows
     if [[ $WINDIR == [a-zA-Z]:\\* ]]; then
       local bsl='\' sl=/
@@ -1027,16 +1037,6 @@ function ble/prompt/initialize {
 
     if [[ -e $windir && -w $windir ]]; then
       _ble_prompt_const_root='#'
-    fi
-  elif [[ $OSTYPE == msys* ]]; then
-    # msys64/etc/bash.bashrc に倣う
-    if ble/bin#has id getent; then
-      local id getent
-      ble/util/assign id 'id -G'
-      ble/util/assign getent 'getent -w group S-1-16-12288'
-      ble/string#split getent : "$getent"
-      [[ " $id " == *" ${getent[1]} "* ]] &&
-        _ble_prompt_const_root='#'
     fi
   fi
 }

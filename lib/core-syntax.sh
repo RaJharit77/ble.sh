@@ -1345,7 +1345,7 @@ function ble/syntax:bash/simple-word/eval/.print-result {
   if [[ $__ble_word_limit ]] && (($#>__ble_word_limit)); then
     set -- "${@::__ble_word_limit}"
   fi
-  if (($#>=1000)) && [[ $OSTYPE != cygwin ]]; then
+  if (($#>=1000)) && [[ $OSTYPE != cygwin && $OSTYPE != msys ]]; then
     # ファイル数が少ない場合は fork コストを避ける為に多少遅くても quote&eval
     # でデータを親シェルに転送する。Cygwin では mapfile/read が unbuffered で遅
     # いので、ファイル数が遅くても quote&eval を使う。

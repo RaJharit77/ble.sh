@@ -1926,6 +1926,77 @@ bash_tips
   - make_command.sh の整理 (scan 分離, char_width 分離)
   - note.txt -> memo.txt
 
+2026-05-28
+
+  * bash: msys 上で bash をビルドした時に OSTYPE は msys* になるのか?
+
+    github CI の msys 上で OSTYPE=cygwin になり始めたのは、bash config.guess 自
+    体の問題か、或いは msys のパッケージの問題か。
+
+  * msys2: 初期化時に unbound keyseq M-f13 等のメッセージが出る。
+
+    これは何だろうか? 変な文字列が書き込まれている? 或いは文字幅判定に対する応
+    答が壊れている? 実際に char_width_mode 及び char_width_version の判定が
+    auto のままになっている。
+
+2026-05-21
+
+  * flyline
+
+    PS1_FILL なる機能がある。これは prompt_ruler に類似であるが ps1 と
+    rps1 のギャップを埋める。但し prompt sequence も解釈する様である。その様に
+    して何か便利なのかについては疑問が残る。
+
+    ファイル名候補の説明に最後に編集されてからの経過時間を表示している。これを
+    ble.sh で実装しようと思ったら、どうにかして効率的にファイル刻を取得する必要
+    があるのが大変である。
+
+    マウス support については何らかのキー操作によって有効・無効を切り替えるよう
+    になっているが、しかし、これはこれで分かりにくい様な気がする。と思ったが、
+    現在マウスのモードがどうなっているかをプロンプトに表示する様にしていて、そ
+    れならば良い様な気もする。これは一考に値する。
+
+2026-05-11
+
+  * bash54: history -H
+  * bash54: history <start>-<end>
+
+  * bash54: "cmd &" で stdin が /dev/null に自動的に繋がる様に変更されたのだろ
+    うか? 或いは "async command" とは "cmd &" とは別の何かの話をしている? もし
+    "cmd &" の事だとすると、例えば最初に "cmd &" で開始していて後で foreground
+    に変更した時に困るのではないだろうか。一度起動した子プロセスの stdin を変え
+    る方法は普通にはない筈である。デバッガで attach すれば行けるかもしれないが、
+    重いし可搬でない。
+
+  * bash54: rlfunc shell-expand-and-requote-line これは昔に提案した物だ。
+
+  * bash54: ${; cmd; } が追加されている!
+
+  * bash54(2/5): tilde expansion で ~: が $HOME: になるのは assignment の中だけ
+    に変更になった?
+
+    669b32f6 までチェックした。
+
+2026-03-22
+
+  * complete: wezterm failed to revert modifyOtherKeys
+    https://www.reddit.com/r/wezterm/comments/1rybvdj/nano_sequences_not_working_with_blesh/
+
+2026-03-20
+
+  * complete: backslash issues
+    https://github.com/akinomyoga/ble.sh/discussions/648#discussioncomment-16207236
+
+2026-03-16
+
+  * main: ble.sh --install path の実際のインストール先が間違っているという話
+    [bash实现类似zsh那样的历史命令自动补全，彩色终端的方法 - vpslala](https://www.vpslala.com/t/1243)
+
+2026-03-15
+
+  * Ghostty 1.3.1
+    https://www.reddit.com/r/Ghostty/comments/1rtjn74/ghostty_131_issues_with_double_prompts/
+
 2025-12-29
 
   * wiki/Misc: ble-import -C についての記述がない。その他のオプションも?
@@ -8137,6 +8208,21 @@ bash_tips
 *******************************************************************************
     Done (実装ログ)
 -------------------------------------------------------------------------------
+
+2026-05-28
+
+  * msys: OSTYPE が嘘をつき始めた [#D2404]
+
+    github CI 上で実態は msys なのにOSTYPE=cygwin になる。しかし実際には msys2
+    の変な振る舞いになっていて、/bin/*.dll を調べてみると cygwin1.dll および
+    cyg*.dll はなくて msys-2.0.dll 及び msys*.dll がある。つまり OSTYPE が嘘を
+    つき始めたという事。手元の Git Bash でも確認してみたら OSTYPE=cygwin になっ
+    ている。
+
+    これは bash に付属している config.guess が判定に失敗し始めたか、もしくは
+    msys の側で意図的に OSTYPE を上書きしているという事だろう。
+
+    うーん。全体的に msys の判定を更新しなければならない。
 
 2026-03-10
 

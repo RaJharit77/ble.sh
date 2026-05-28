@@ -3919,7 +3919,11 @@ function ble/util/declare-print-definitions {
   # 1.3.3-20090705 が使用されている。なので _ble_term_blank という変数に
   # <SP><TAB> を入れて使う。
 
-  declare -p "$@" | ble/bin/awk -v _ble_bash="$_ble_bash" -v OSTYPE="$OSTYPE" '
+  # Note (#D2404): the current version of msys-2.0 reports OSTYPE=cygwin.
+  local ostype=$OSTYPE
+  ble/base/is-msys && ostype=msys
+
+  declare -p "$@" | ble/bin/awk -v _ble_bash="$_ble_bash" -v OSTYPE="$ostype" '
     BEGIN {
       decl = "";
 
@@ -4662,7 +4666,7 @@ then
   # ない。
   function ble/util/msleep { ble/builtin/msleep "$1"; }
 elif ((40000<=_ble_bash&&!(40300<=_ble_bash&&_ble_bash<50200))) &&
-       [[ $OSTYPE != cygwin* && $OSTYPE != mingw* && $OSTYPE != haiku* && $OSTYPE != minix* ]]
+       [[ $OSTYPE != cygwin* && $OSTYPE != msys* && $OSTYPE != haiku* && $OSTYPE != minix* ]]
 then
   # FIFO (mkfifo) を予め読み書き両用で開いて置き read -t する方法。
   #
