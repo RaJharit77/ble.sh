@@ -4562,6 +4562,17 @@ if ((_ble_bash>=40400)) && ble/util/load-standard-builtin sleep; then
       a1=${BASH_REMATCH[1]}
       exp=${BASH_REMATCH[2]}
       unit=${BASH_REMATCH[3]}
+    elif ble/string#match '^\+[Ii][Nn][Ff]([Ii][Nn][Ii][Tt][Yy])?[smhd]?$'; then
+      # Note: 0x7FFFFFFF secs = 68 yrs, so it is essentially infinity unless a
+      # single machine continues to run for 68 years.  Another option is to
+      # call the system "sleep inf" when infinity is specified, but the system
+      # "sleep" does not necessarily support "inf".  "sleep" of GNU coreutils
+      # is known to support "inf" and "infinity" (through strtod [1]).  FreeBSD
+      # sleep also supports "infinity" through strtod [2].
+      #
+      # [1] https://zenn.dev/mattn/articles/bf1be136609be5
+      # [2] https://man.freebsd.org/cgi/man.cgi?query=strtod&sektion=3&apropos=0
+      a1=2147483647
     else
       ble/util/print "ble/builtin/sleep: invalid time spec '$1'" >&2
       flags=E$flags

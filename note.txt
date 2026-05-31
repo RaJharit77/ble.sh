@@ -1926,6 +1926,12 @@ bash_tips
   - make_command.sh の整理 (scan 分離, char_width 分離)
   - note.txt -> memo.txt
 
+2026-05-31
+
+  * msys: fd#add-cloexec で変な事が起きている? これは手元でも起こっている。
+
+  * 4fee44e65 で \r の除去が壊れている。
+
 2026-05-28
 
   * bash: msys 上で bash をビルドした時に OSTYPE は msys* になるのか?
@@ -8208,6 +8214,11 @@ bash_tips
 *******************************************************************************
     Done (実装ログ)
 -------------------------------------------------------------------------------
+
+2026-05-31
+
+  * util (ble/builtin/sleep): support "sleep inf" (motivated by giggio) [#D2408]
+    https://github.com/akinomyoga/ble.sh/issues/700
 
 2026-05-28
 

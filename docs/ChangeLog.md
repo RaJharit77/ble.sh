@@ -200,8 +200,8 @@
 - complete: fix extra quoting of requote with incomplete word `#D2386` 8028fa45
 - cmdspec (`declare/chroma`): fix a bug of evaluating global variable `d` (reported by LeonardoMor) `#D2387` 57ad2bf5
 - util (`ble/function#advice`): fix `-f` doing the opposite (reported by Funeralsawa) `#D2401` 801cc1c8
-- make: fix a race condition (reported by sanvila) `#2406` xxxxxxxx
-- syntax (completion-context): fix an infinite loop caused by nested braces (fixed by dlyongemallo) `#D2407` xxxxxxxx
+- make: fix a race condition (reported by sanvila) `#2406` c92dddbe
+- syntax (completion-context): fix an infinite loop caused by nested braces (fixed by dlyongemallo) `#D2407` f38850cb
 
 ## Compatibility
 
@@ -277,7 +277,8 @@
 - main (`ble/bin/awk`): work around `gawk-5.4.0` bug for `gensub` back-references (reported by 0xhtml, raeraex2, l0042158) `#D2394` 40cc5766
 - mandb: support the man-page format of `docker` (reported by NecRaul) `#D2398` a34b177a
 - msys: work around `OSTYPE=cygwin` in msys-2.0 `#D2404` e9bef3c0
-- github: update the version of `actions/checkout` `#D2405` xxxxxxxx
+- github: update the version of `actions/checkout` `#D2405` 1ba7f115
+- util (`ble/builtin/sleep`): support `sleep inf` (motivated by giggio) `#D2408` xxxxxxxx
 
 ## Contrib
 
