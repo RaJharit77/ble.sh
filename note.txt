@@ -1930,8 +1930,6 @@ bash_tips
 
   * msys: fd#add-cloexec で変な事が起きている? これは手元でも起こっている。
 
-  * 4fee44e65 で \r の除去が壊れている。
-
 2026-05-28
 
   * bash: msys 上で bash をビルドした時に OSTYPE は msys* になるのか?
@@ -8216,6 +8214,12 @@ bash_tips
 -------------------------------------------------------------------------------
 
 2026-05-31
+
+  * msys: fix workaround for CR in MSYS [#D2409]
+
+    4fee44e6 で \r の除去が壊れている。元々 $'\r' を除去していたのに、この時の
+    書き換えで $_ble_term_nl を除去する様になっている。代わりに $_ble_term_cr
+    を削除する様に変更する。実際に動作確認はしていないがこれで直るだろう。
 
   * util (ble/builtin/sleep): support "sleep inf" (motivated by giggio) [#D2408]
     https://github.com/akinomyoga/ble.sh/issues/700

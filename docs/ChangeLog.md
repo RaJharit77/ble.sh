@@ -230,6 +230,7 @@
 - global: work around case-interleaving collation (reported by dongxi8) `#D2103` a3b94bb3
 - nsearch: set `immediate-accept` for `empty=emulate-readline` (reported by blackteahamburger) `#D2104` 870ecef7
 - decode, vi_digraph: trim CR of text resources in MSYS `#D2105` 6f4badf4
+  - decode (`ble/builtin/bind/rlfunc2widget`): fix a workaround for CR in MSYS (fix 4fee44e6) `#D2409` xxxxxxxx
 - progcomp: conditionally suffix space for git completion (reported by bkerin) `#D2111` 2c7cca2f
 - main: fix initialization errors with `set -u` `#D2116` b503887a
 - progcomp: work around slow `make` completion in large repository (reported by blackteahamburger) `#D2117` 5f3a0010
