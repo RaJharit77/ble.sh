@@ -8213,6 +8213,13 @@ bash_tips
     Done (実装ログ)
 -------------------------------------------------------------------------------
 
+2026-06-01
+
+  * mandb: support man pages compressed with .zst (motivated by HalFrgrd) [#D2410]
+    https://github.com/HalFrgrd/flyline/pull/689
+
+    つまり最近は man pages を zst で圧縮する distribution が存在するという事。
+
 2026-05-31
 
   * msys: fix workaround for CR in MSYS [#D2409]

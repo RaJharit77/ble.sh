@@ -280,6 +280,7 @@
 - msys: work around `OSTYPE=cygwin` in msys-2.0 `#D2404` e9bef3c0
 - github: update the version of `actions/checkout` `#D2405` 1ba7f115
 - util (`ble/builtin/sleep`): support `sleep inf` (motivated by giggio) `#D2408` xxxxxxxx
+- mandb: support the man-page sources compressed with .zst (motivated by HalFrgrd) `#D2410` xxxxxxxx
 
 ## Contrib
 

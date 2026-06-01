@@ -2501,7 +2501,7 @@ bleopt/declare -v debug_xtrace_ps4 '+ '
 
 ble/bin#freeze-utility-path "${_ble_init_posix_command_list[@]}" # <- this uses ble/util/assign.
 ble/bin#freeze-utility-path man
-ble/bin#freeze-utility-path groff nroff mandoc gzip bzcat lzcat xzcat # used by core-complete.sh
+ble/bin#freeze-utility-path groff nroff mandoc gzip bzcat lzcat xzcat zstdcat # used by core-complete.sh
 ble/bin/sed/.instantiate
 ble/bin/stty/.instantiate
 

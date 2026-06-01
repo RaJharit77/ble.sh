@@ -4945,11 +4945,9 @@ function ble/complete/mandb/search-file {
       ble/complete/mandb/search-file/.check "$path/man1/$command.1.gz" && return 0
       ble/complete/mandb/search-file/.check "$path/man1/$command.8.gz" && return 0
     fi
-    if ble/is-function ble/bin/bzcat; then
-      ble/complete/mandb/search-file/.check "$path/man1/$command.1.bz" && return 0
-      ble/complete/mandb/search-file/.check "$path/man1/$command.1.bz2" && return 0
-      ble/complete/mandb/search-file/.check "$path/man1/$command.8.bz" && return 0
-      ble/complete/mandb/search-file/.check "$path/man1/$command.8.bz2" && return 0
+    if ble/is-function ble/bin/zstdcat; then
+      ble/complete/mandb/search-file/.check "$path/man1/$command.1.zst" && return 0
+      ble/complete/mandb/search-file/.check "$path/man1/$command.8.zst" && return 0
     fi
     if ble/is-function ble/bin/xzcat; then
       ble/complete/mandb/search-file/.check "$path/man1/$command.1.xz" && return 0
@@ -4958,6 +4956,12 @@ function ble/complete/mandb/search-file {
     if ble/is-function ble/bin/lzcat; then
       ble/complete/mandb/search-file/.check "$path/man1/$command.1.lzma" && return 0
       ble/complete/mandb/search-file/.check "$path/man1/$command.8.lzma" && return 0
+    fi
+    if ble/is-function ble/bin/bzcat; then
+      ble/complete/mandb/search-file/.check "$path/man1/$command.1.bz" && return 0
+      ble/complete/mandb/search-file/.check "$path/man1/$command.1.bz2" && return 0
+      ble/complete/mandb/search-file/.check "$path/man1/$command.8.bz" && return 0
+      ble/complete/mandb/search-file/.check "$path/man1/$command.8.bz2" && return 0
     fi
   done
   return 1
@@ -5070,9 +5074,10 @@ function ble/complete/mandb/.generate-cache-from-man {
   local path=$ret
   case $ret in
   (*.gz)       ble/bin/gzip -cd "$path" ;;
-  (*.bz|*.bz2) ble/bin/bzcat "$path" ;;
-  (*.lzma)     ble/bin/lzcat "$path" ;;
+  (*.zst)      ble/bin/zstdcat "$path" ;;
   (*.xz)       ble/bin/xzcat "$path" ;;
+  (*.lzma)     ble/bin/lzcat "$path" ;;
+  (*.bz|*.bz2) ble/bin/bzcat "$path" ;;
   (*)          ble/bin/cat "$path" ;;
   esac | ble/bin/awk -v type="$_ble_complete_mandb_convert_type" '
     BEGIN {
