@@ -259,7 +259,7 @@
 - main: delay attaching in kitty, Ghostty, and VS Code Terminal `#D2215` 430a1746
   - main: update workaround for Ghostty (reported by odili) `#D2322` 4338bbf7
 - edit: adjust cursor position after `bind -x` in vi_nmap (requested by miltieIV2) `#D2317` 36ab934f
-- progcomp: update workaround for the dnf completion (reported by msr8) `#D2321` 2a0c6ba6
+- progcomp: update workaround for the `dnf` completion (reported by msr8) `#D2321` 2a0c6ba6
 - global: check `LC_COLLATE=C` for range expressions `#D2326` f507a1bc
 - decode: fix unrecoginized <kbd>ESC O A</kbd> in `4.0 <= bash < 5.0` `#D2333` 6f4d0401
 - decode: verify cache consistency by embedded hash (reported by teutat3s, bigbruno, giggio, erfan-star-1999) `#D2345` e63f6f67
@@ -281,6 +281,7 @@
 - github: update the version of `actions/checkout` `#D2405` 1ba7f115
 - util (`ble/builtin/sleep`): support `sleep inf` (motivated by giggio) `#D2408` xxxxxxxx
 - mandb: support the man-page sources compressed with .zst (motivated by HalFrgrd) `#D2410` xxxxxxxx
+- mandb: adjust man page parsing for `ffmpeg` (reported by SuggonM) `#D2411`
 
 ## Contrib
 

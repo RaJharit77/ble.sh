@@ -5286,25 +5286,51 @@ function ble/complete/mandb/.generate-cache-from-man {
     fmt3_state { fmt3_process(); }
 
     #--------------------------------------------------------------------------
-    # Format #4: [[.IP "key" 4 \n .IX Item "..."]+ \n .PD \n desc]
-    # This format is used by "wget".
+    # Format #4: [[.IP "?key"? 4 \n .IX Item "..." \n desc?]+ \n .PD \n desc]
+    # Used for "ffmpeg", old "wget", and old "fish".
+    #
+    # This format was originally added for "wget".  The format of the wget man
+    # page was specifically:
+    #
+    #   [[.IP "key" 4 \n .IX Item "..."]+ \n .PD \n desc]
+    #
+    # However, the current version of "wget" does not seem to use this format.
+    # The format was extended to also cover the "fish" man page, which used the
+    # following structure:
+    #
+    #   [.IP "\(bu" 2 \n keys desc]
+    #
+    # However, the current version of "fish" no longer seems to use the above
+    # structure either.  On the other hand, a similar format is used by
+    # "ffmpeg":
+    #
+    #   [.IP "key" 4 \n .IX Item ... \n desc]
+    #   [.IP key 4 \n .IX Item ... \n desc]
+    #
+    # but there are differences.  The "key" is not necessarily quoted by "...",
+    # and the description immediately comes after the .IX line, without being
+    # separated by .PD.  The current version of Format 4 primarily focuses on
+    # parsing the man page of "ffmpeg".
 
-    /^\.IP['"$_ble_term_blank"']+".*"(['"$_ble_term_blank"']+[0-9]+)?$/ && fmt3_state != "key" {
+    /^\.IP['"$_ble_term_blank"']+"?.*"?(['"$_ble_term_blank"']+[0-9]+)?$/ && fmt3_state != "key" {
       fmt6_init();
       fmt4_init();
       next;
     }
 
     function fmt4_init() {
-      if (mode != "fmt4_desc")
-        if (!(g_keys_count && g_desc == "")) all_flush();
+      if (g_keys_count == 0 || g_desc != "") all_flush();
 
-      gsub(/^\.IP['"$_ble_term_blank"']+"|"(['"$_ble_term_blank"']+[0-9]+)?$/, "");
+      gsub(/^\.IP['"$_ble_term_blank"']+"?|"?(['"$_ble_term_blank"']+[0-9]+)?$/, "");
       stage_key($0);
       mode = "fmt4_desc";
     }
     mode == "fmt4_desc" {
-      if ($0 == "") { all_flush(); mode = "none"; next; }
+      if ($0 == "" || (REQ == "Sp" || REQ == "RE" || REQ == "RS" || REQ == "PD") && g_desc != "") {
+        all_flush();
+        mode = "none";
+        next;
+      }
 
       # fish has a special format of [.IP "\(bu" 2 \n keys desc]
       if (g_keys_count == 1 && g_keys[0] == "\\(bu" && match($0, /^\\fC[^\\]+\\fP( or \\fC[^\\]+\\fP)?/) > 0) {
@@ -5317,7 +5343,6 @@ function ble/complete/mandb/.generate-cache-from-man {
         next;
       }
 
-      if (REQ == "PD") next;
       if (/^\.IX['"$_ble_term_blank"']+Item['"$_ble_term_blank"']+/) next;
 
       stage_desc($0);
