@@ -6510,7 +6510,7 @@ function ble/complete/context:hostname/generate-sources {
 #   characters
 #
 # Note: Even though "glob-complete-word" appends '*', the bindable functions
-# "glob-expand-word" and "glob-list-word" do not append '*' unles an argument
+# "glob-expand-word" and "glob-list-word" do not append '*' unless an argument
 # is supplied.  This does not satisfy the command duration.
 #
 # In this implementation, we first attempt the pathname expansion without

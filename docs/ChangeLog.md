@@ -691,7 +691,7 @@
 - global: suppress missing locale errors (reported by 3ximus) `#D1440` 4d3c595
 - edit (sword): fix definition of `sword` (shell words) `#D1441` f923388
 - edit (`kill-forward-logical-line`): fix a bug not deleting newline at the end of the line `#D1443` 09cf7f1
-- util (`ble/util/msleep`): fix hang in Cygwin by swithing from `/dev/udp/0.0.0.0/80` to `/dev/zero` `#D1452` d4d718a
+- util (`ble/util/msleep`): fix hang in Cygwin by switching from `/dev/udp/0.0.0.0/80` to `/dev/zero` `#D1452` d4d718a
   - util (`ble/util/msleep`): work around the bash-4.3 bug of `read -t` (reported by 3ximus) `#D1468` `#D1469` 4ca9b2e
 - syntax: fix broken AST with `[[` keyword `#D1454` 69658ef
 - benchmark (`ble-measure`): work around a locale-dependent decimal point of `EPOCHREALTIME` (reported by 3ximus) `#D1460` 1aa471b
@@ -715,7 +715,7 @@
 - main: work around sourcing `ble.sh` inside subshells `#D1554` bbc2a90
   - main: fix exit status for `bash ble.sh --test` (fixup bbc2a90) `#D1558` 641238a
   - main: fix reloading after ble-update (fixup bbc2a90) (fixed by oc1024) `#D1558` 9372670
-- main: work around `. ble.sh --{test,update,clear-cache}` in intereactive sessions `#D1555` bbc2a90
+- main: work around `. ble.sh --{test,update,clear-cache}` in interactive sessions `#D1555` bbc2a90
 - Makefile: create `run` directory instead of `tmp` `#D1557` 9bdb37d
 - main: fix the workaround for `set -e` `#D1564` ab2f70b
   - main: fix the workaround for `set -u` `#D1575` 76073a9
@@ -725,7 +725,7 @@
 - sabbrev (`ble-sabbrev`): fix delayed output before the initialization `#D1573` 5d85238
 - history: fix the workaround for bash-3.0 bug of reducing histories `#D1576` 15c9133
 - syntax: fix a bug that argument completion is attempted in nested commands (reported by huresche) `#D1579` 301d40f
-- edit (brackated-paste): fix incomplete `CR => LF` conversion (reported by alborotogarcia) `#D1587` 8d6da16
+- edit (bracketed-paste): fix incomplete `CR => LF` conversion (reported by alborotogarcia) `#D1587` 8d6da16
 - main (adjust-bash-options): adjust `LC_COLLATE=C` `#D1588` e87ac21
 - highlight (`layer:region`): fix blocked lower-layer changes without selection changes `#D1596` 5ede3c6
 - complete (`auto-menu`): fix sleep loops by clock/sclock difference `#D1597` 53dd018
@@ -850,7 +850,7 @@
 - complete: work around `bash-completion` bugs (reported by oc1024) `#D1533` 9d4ad56
 - main: work around MSYS2 .inputrc (reported by n1kk) `#D1534` 9e786ae
 - util (`modifyOtherKeys`): work around a quirk of kitty (reported by NoahGorny) `#D1549` f599525
-  - util (`modifyOtherKeys`): update the workaround for a new quiark of kitty `#D1627` 3e4ecf5
+  - util (`modifyOtherKeys`): update the workaround for a new quirk of kitty `#D1627` 3e4ecf5
   - util (`modifyOtherKeys`): use the kitty protocol for kitty 0.23+ which removes the support of `modifyOtherKeys` (reported by kovidgoyal) `#D1681` ec91574
   - util (`modifyOtherKeys`): set up `modifyOtherKeys` only after `DA2` (reported by dongxi8) `#D1885` 149eee9
 - global: work around empty `vi_imap` cache by `tmux-resurrect` `#D1562` 560160b
@@ -905,7 +905,7 @@
 - util (`modifyOtherKeys`): work around delayed terminal identification `#D1842` 14f3c81
   - util (`modifyOtherKeys`): fix a bug that kitty protocol is never activated `#D1842` 14f3c81
 - util (`modifyOtherKeys`): pass-through kitty protocol sequences (motivated by ferdinandyb) `#D1845` f66e0c1
-- main: show warning for empty locale (movivated by Ultra980) `#D1927` 92f2006
+- main: show warning for empty locale (motivated by Ultra980) `#D1927` 92f2006
 - main: never load `/etc/inputrc` in openSUSE (motivated by Ultra980) `#D1926` 92f2006 0ceb0cb
 - canvas: refine detection of `bleopt char_width_mode=musl` `#D1929` b0c16dd
 - term (`terminology`): work around terminal glitches `#D1946` 9a1b4f9
@@ -1169,7 +1169,7 @@
 - edit (`ble-bind -x`): check range of `READLINE_{POINT,MARK}` `#D1339` efe1e81
 - main: fix a bug that `~/.config/blesh/init.sh` is not detected (GitHub #53 by rux616) 61f9e10
 - util (`ble/string#to{upper,lower}`): work around `LC_COLLATE=en_US.utf8` (test-util) `#D1341` 1f6b44e `#D1355` 4da6103 5f0d49f
-- util (encoding, keyseq): fix miscelleneous encoding bugs (test-util) 435bd16
+- util (encoding, keyseq): fix miscellaneous encoding bugs (test-util) 435bd16
   - `ble/util/c2keyseq`: work around bash ambiguous keyseq `\M-\C-\\`
   - `ble/util/c2keyseq`: fix a bug that `C1` characters are not properly encoded
   - `ble/util/keyseq2chars`: fix a bug that `\xHH` is not properly processed
@@ -1186,15 +1186,15 @@
 - complete: fix a bug that progcomp retry by 124 caused the default completion again `#D1386` 98576c7
 - complete: fix bugs that quotation disappears on ambiguous completion `#D1387` 98576c7
 - complete: fix a bug of duplicated completions of filenames with spaces `#D1390` 98576c7
-- complete: fix superlinear performace of ambiguous matching globpat `#D1389` 71afaba
+- complete: fix superlinear performance of ambiguous matching globpat `#D1389` 71afaba
 - prompt: fix extra spaces on line folding before double width character `#D1400` d84bcd8
-- prompt: fix a bug that lonig rps1 is not correctly turned off `#D1401` d84bcd8
+- prompt: fix a bug that long rps1 is not correctly turned off `#D1401` d84bcd8
 - syntax (glob bracket expression): fix a bug of unsupported POSIX brackets `#D1402` 6fd9e22
 - syntax (`ble/syntax:bash/simple-word/evaluate-path-spec`): fix a bug of unrecognized `[!...]` and `[^...]` `#D1403` 0b842f5
 - complete (`cd`): fix duplicate candidates by `CDPATH` (reported by Lennart00 at `oh-my-bash`) `#D1415` 5777d7f
 - complete (`source:file`): fix a bug that tilde expansion candidates are always filtered out `#D1416` 5777d7f
 - complete: fix a problem of redundant unmatched ambiguous part with tilde expansions in the common prefix `#D1417` 5777d7f
-- highlight: fix remaininig highlighting of vanishing words `#D1421` `#D1422` 1066653
+- highlight: fix remaining highlighting of vanishing words `#D1421` `#D1422` 1066653
 - complete: fix a problem that the user setting `dotglob` is changed `#D1425` 987436d
 
 ## Compatibility
@@ -1202,7 +1202,7 @@
 - main: work around cygwin uninitialized environment `#D1225` `#D1226` b9278bc
 - global: work around Bash 3.2 bug of array initialization with <kbd>SOH</kbd>/<kbd>DEL</kbd> `#D1238` defdbd4 `#D1241` 1720ec0
 - term: support `TERM=minix` `#D1262` ae0b80f
-- msys2: support2 MSYS (motivated by SUCHMOKUO) `#D1264` 47e2863
+- msys2: support MSYS (motivated by SUCHMOKUO) `#D1264` 47e2863
   - edit: support `\$` in `PS1` for MSYS2 `#D1265` f6f8956
   - msys2: work around MSYS2 Bash bug of missing <kbd>CR</kbd> `#D1270` 71f3498
   - cygwin, msys2: support widget `paste-from-clipboard` `#D1271` cd26c65
@@ -2121,7 +2121,7 @@
 * keymap/vi_xmap: support block selection
 
 ## 2017-10-01
-* keymap/vi_xmap: support visual mode swithing
+* keymap/vi_xmap: support visual mode switching
 * keymap/vi: support visual mode
 
 ## 2017-09-28

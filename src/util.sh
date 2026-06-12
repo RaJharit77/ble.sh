@@ -3555,7 +3555,7 @@ elif ((_ble_bash>=40000)); then
   # original stream of the redirected file descriptor) gets O_CLOEXEC.  If we
   # can identify the "undo fd", we can duplicate it to another file descriptor
   # to get O_CLOEXEC version of the original stream.  This can only be used in
-  # bash >= 4.0, because older versions of bash does not give O_CLOEXEC to the
+  # bash >= 4.0, because older versions of bash do not give O_CLOEXEC to the
   # undo fds.
   if [[ -d /proc/$$/fd ]]; then
     # Implementation of ble/fd#cloexec by procfs (1588us)

@@ -4455,20 +4455,20 @@ function bind {
 # ble/decode/initialize, attach, detach                          @decode.attach
 
 function ble/decode/initialize/.has-broken-suse-inputrc {
-  # 1. Check if this is openSUSE and has /etc/input.keys.
+  # 1. Check if this is openSUSE and has /etc/inputrc.keys.
   local content=
   [[ -s /etc/inputrc.keys && -r /etc/os-release ]] &&
     ble/util/readfile content /etc/os-release &&
     [[ $content == *'SUSE'* ]] || return 1
 
-  # Note #1926: Even after the fix
+  # Note #D1926: Even after the fix
   # https://github.com/openSUSE/aaa_base/pull/84, "inputrc.keys" causes
   # problems through extra bindings of the [home]/[end] escape sequences to
   # [prior], [Enter] to "accept-line", etc.  Thus, we comment out the following
-  # part of codes and always return 0 when there is "/etc/inputrc.keys".
+  # part of the code and always return 0 when there is "/etc/inputrc.keys".
 
   # 2. Check if the file "inputrc.keys" has the bug.
-  # ((_ble_bash<50000)) || return 1 # Bash 5.0+ are not suffered
+  # ((_ble_bash<50000)) || return 1 # Bash 5.0+ do not suffer from this
   # ble/util/readfile content /etc/inputrc.keys &&
   #   [[ $content == *'"\M-[2~":'* ]] || return 1
 

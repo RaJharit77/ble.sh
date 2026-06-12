@@ -254,7 +254,7 @@ function ble/widget/vi_imap/__before_widget__ {
 }
 
 # Note: The following widgets need to have the name of the form "vi_imap/*" to
-# suppress the invokation of "ble-edit/undo/add".
+# suppress the invocation of "ble-edit/undo/add".
 function ble/widget/vi_imap/undo { ble/widget/undo "$@"; }
 function ble/widget/vi_imap/redo { ble/widget/redo "$@"; }
 function ble/widget/vi_imap/revert { ble/widget/revert "$@"; }

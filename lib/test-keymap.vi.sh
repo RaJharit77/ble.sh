@@ -107,16 +107,16 @@ function ble/keymap:vi_test/section:cw {
   ble/keymap:vi_test/check B5c '@:@abc///漢字' '2 c w' '@:@漢字'
 
   # with empty lines
-  ble/keymap:vi_test/check C1 $'@:123 456 @  \n\n789' 'c w' $'@:123 456 @\n\n789'
-  ble/keymap:vi_test/check C2 $'@:123 456   \n@\n789' 'c w' $'@:123 456   \n@\n789'
-  ble/keymap:vi_test/check C3 $'@:123 45@6   \n\n789' 'c w' $'@:123 45@   \n\n789'
-  ble/keymap:vi_test/check C4 $'@:123 456@   \n\n789\nabc' '2 c w' $'@:123 456@\n789\nabc'
-  ble/keymap:vi_test/check C5 $'@:123 45@6   \n\n789\nabc' '2 c w' $'@:123 45@\nabc'
-  ble/keymap:vi_test/check C6 $'@:123 4@56   \n\n789\nabc' '2 c w' $'@:123 4@\nabc'
-  ble/keymap:vi_test/check C7 $'@:123 456@   \n\n\n789\nabc' '2 c w' $'@:123 456@\n\n789\nabc'
-  ble/keymap:vi_test/check C8 $'@:123 45@6   \n\n\n789\nabc' '2 c w' $'@:123 45@\nabc'
-  ble/keymap:vi_test/check C9 $'@:123 4@56   \n\n\n789\nabc' '2 c w' $'@:123 4@\nabc'
-  ble/keymap:vi_test/check C9 $'@:123 456   \n\n@' '2 c w' $'@:123 456   \n\n@'
+  ble/keymap:vi_test/check C1a $'@:123 456 @  \n\n789' 'c w' $'@:123 456 @\n\n789'
+  ble/keymap:vi_test/check C1b $'@:123 456   \n@\n789' 'c w' $'@:123 456   \n@\n789'
+  ble/keymap:vi_test/check C1c $'@:123 45@6   \n\n789' 'c w' $'@:123 45@   \n\n789'
+  ble/keymap:vi_test/check C1d $'@:123 456@   \n\n789\nabc' '2 c w' $'@:123 456@\n789\nabc'
+  ble/keymap:vi_test/check C2a $'@:123 45@6   \n\n789\nabc' '2 c w' $'@:123 45@\nabc'
+  ble/keymap:vi_test/check C2b $'@:123 4@56   \n\n789\nabc' '2 c w' $'@:123 4@\nabc'
+  ble/keymap:vi_test/check C2c $'@:123 456@   \n\n\n789\nabc' '2 c w' $'@:123 456@\n\n789\nabc'
+  ble/keymap:vi_test/check C2d $'@:123 45@6   \n\n\n789\nabc' '2 c w' $'@:123 45@\nabc'
+  ble/keymap:vi_test/check C2e $'@:123 4@56   \n\n\n789\nabc' '2 c w' $'@:123 4@\nabc'
+  ble/keymap:vi_test/check C2f $'@:123 456   \n\n@' '2 c w' $'@:123 456   \n\n@'
 
   ble/test/end-section
 }
@@ -287,9 +287,9 @@ function ble/keymap:vi_test/section:txtobj_block_omap {
   ble/keymap:vi_test/check A1g '@:echo foo ( bar @) baz (hello) world (vim) xxxx' 'd i b' '@:echo foo (@) baz (hello) world (vim) xxxx'
   ble/keymap:vi_test/check A1h '@:echo foo ( bar )@ baz (hello) world (vim) xxxx' 'd i b' '@:echo foo ( bar ) baz (@) world (vim) xxxx'
   ble/keymap:vi_test/check A1i '@:echo foo ( bar ) @baz (hello) world (vim) xxxx' 'd i b' '@:echo foo ( bar ) baz (@) world (vim) xxxx'
-  ble/keymap:vi_test/check A1i '@:echo foo ( bar ) baz (hello) world (vim@) xxxx' 'd i b' '@:echo foo ( bar ) baz (hello) world (@) xxxx'
-  ble/keymap:vi_test/check A1i '@:echo foo ( bar ) baz (hello) world (vim)@ xxxx' 'd i b' '@:echo foo ( bar ) baz (hello) world (vim)@ xxxx'
-  ble/keymap:vi_test/check A1i '@:echo foo ( bar ) baz (hello) world (vim) @xxxx' 'd i b' '@:echo foo ( bar ) baz (hello) world (vim) @xxxx'
+  ble/keymap:vi_test/check A1j '@:echo foo ( bar ) baz (hello) world (vim@) xxxx' 'd i b' '@:echo foo ( bar ) baz (hello) world (@) xxxx'
+  ble/keymap:vi_test/check A1k '@:echo foo ( bar ) baz (hello) world (vim)@ xxxx' 'd i b' '@:echo foo ( bar ) baz (hello) world (vim)@ xxxx'
+  ble/keymap:vi_test/check A1l '@:echo foo ( bar ) baz (hello) world (vim) @xxxx' 'd i b' '@:echo foo ( bar ) baz (hello) world (vim) @xxxx'
 
   ble/keymap:vi_test/check B1a '@:echo ( @foo ( bar ) baz (hello) world (vim) ) xxxx' 'd i b' '@:echo (@) xxxx'
   ble/keymap:vi_test/check B1b '@:echo ( foo @( bar ) baz (hello) world (vim) ) xxxx' 'd i b' '@:echo ( foo (@) baz (hello) world (vim) ) xxxx'
@@ -312,10 +312,10 @@ function ble/keymap:vi_test/section:txtobj_block_omap {
   ble/keymap:vi_test/check C2b '@:echo foo (@ bar ) baz (hello) world (vim) ) xxxx' 'd i b' '@:echo foo (@) baz (hello) world (vim) ) xxxx'
 
   ble/keymap:vi_test/check D1a '@:echo @vim) test ( quick ) world ( foo )' 'd i b' '@:echo @vim) test ( quick ) world ( foo )'
-  ble/keymap:vi_test/check D1a '@:echo vi@m) test ( quick ) world ( foo )' 'd i b' '@:echo vi@m) test ( quick ) world ( foo )'
-  ble/keymap:vi_test/check D1a '@:echo vim@) test ( quick ) world ( foo )' 'd i b' '@:echo vim) test (@) world ( foo )'
-  ble/keymap:vi_test/check D1a '@:echo vim) @test ( quick ) world ( foo )' 'd i b' '@:echo vim) test (@) world ( foo )'
-  ble/keymap:vi_test/check D1a '@:echo vim) test @( quick ) world ( foo )' 'd i b' '@:echo vim) test (@) world ( foo )'
+  ble/keymap:vi_test/check D1b '@:echo vi@m) test ( quick ) world ( foo )' 'd i b' '@:echo vi@m) test ( quick ) world ( foo )'
+  ble/keymap:vi_test/check D1c '@:echo vim@) test ( quick ) world ( foo )' 'd i b' '@:echo vim) test (@) world ( foo )'
+  ble/keymap:vi_test/check D1d '@:echo vim) @test ( quick ) world ( foo )' 'd i b' '@:echo vim) test (@) world ( foo )'
+  ble/keymap:vi_test/check D1e '@:echo vim) test @( quick ) world ( foo )' 'd i b' '@:echo vim) test (@) world ( foo )'
 
   ble/keymap:vi_test/check E1a '@:echo @foo () bar' 'd i b' '@:echo foo (@) bar'
   ble/keymap:vi_test/check E1b '@:echo foo @() bar' 'd i b' '@:echo foo (@) bar'

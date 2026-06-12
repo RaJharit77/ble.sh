@@ -60,7 +60,7 @@ function ble/widget/emacs/__before_widget__ {
 }
 
 # Note: The following widgets need to have the name of the form "emacs/*" to
-# suppress the invokation of "ble-edit/undo/add".
+# suppress the invocation of "ble-edit/undo/add".
 function ble/widget/emacs/undo { ble/widget/undo "$@"; }
 function ble/widget/emacs/redo { ble/widget/redo "$@"; }
 function ble/widget/emacs/revert { ble/widget/revert "$@"; }

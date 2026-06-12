@@ -35,11 +35,11 @@
 ##
 ##     When any of "timeout=TIMEOUT", "deferred", and "restart" are specified
 ##     to OPTS, one should call "ble/util/bgproc#use PREFIX" just before
-##     directly accesssing the file descriptors ${PREFIX_bgproc[0]} and
+##     directly accessing the file descriptors ${PREFIX_bgproc[0]} and
 ##     ${PREFIX_bgproc[1]} to ensure that the background process is running.
 ##     Or, one can use a shorthand "ble/util/bgproc#post PREFIX STRING" to
 ##     ensure the background process and write STRING to it.  Immediately after
-##     "ble/util/bgproc#post PREFIX STRING", one do not need to call
+##     "ble/util/bgproc#post PREFIX STRING", one does not need to call
 ##     "ble/util/bgproc#use PREFIX" to read from ${PREFIX_bgproc[0]}.
 ##
 ##   @param[in] command
@@ -78,7 +78,7 @@
 ##       necessary.
 ##
 ##       Note: Even if this option is unspecified, the background process that
-##       was intensiontally stopped will be always restarted when it becomes
+##       was intentionally stopped will be always restarted when it becomes
 ##       necessary.  This option only affects the case that the background
 ##       process exited or died outside the management of bgproc.
 ##
@@ -94,7 +94,7 @@
 ##       specified, another "unload" blehook needs to manually call
 ##       "ble/util/bgproc#close" for this bgproc.  If "ble/util/bgproc#close"
 ##       is not called, the background process may be forcibly terminated by
-##       the final cleaup stage of ble.sh session.
+##       the final cleanup stage of ble.sh session.
 ##
 ##     no-close-on-unload
 ##       This option suppresses the automatic call of "ble/util/bgproc#close"
@@ -160,14 +160,14 @@
 ##   When this function is defined, this function is called before the
 ##   background process is stopped.
 ##
-##   The application can send an intruction to terminate the background process
-##   in this hook (in case that the background process does not automatically
-##   end on the close of the file descriptors, or the file descriptors can be
-##   shared with other background subshells).  Note that the background process
-##   will receive SIGTERM if it does not terminate within the timeout specified
-##   by "kill-timeout=TIMEOUT" and then will receive SIGKILL if it does not
-##   even terminate within the additional timeout specified by
-##   "kill9-timeout=TIMEOUT".
+##   The application can send an instruction to terminate the background
+##   process in this hook (in case that the background process does not
+##   automatically terminate on the close of the file descriptors, or the file
+##   descriptors can be shared with other background subshells).  Note that the
+##   background process will receive SIGTERM if it does not terminate within
+##   the timeout specified by "kill-timeout=TIMEOUT" and then will receive
+##   SIGKILL if it does not even terminate within the additional timeout
+##   specified by "kill9-timeout=TIMEOUT".
 ##
 ## @fn ble/util/bgproc/onclose:PREFIX
 ##   When this function is defined, this function is called before the bgproc
@@ -258,7 +258,7 @@ function ble/util/bgproc/.mkfifo {
 ##     The name to identify the bgproc.
 ##
 ##   @exit 0 if the background process is successfully started or was already
-##   running.  2 if the PREFIX does not corresponds to an existing bgproc.  3
+##   running.  2 if the PREFIX does not correspond to an existing bgproc.  3
 ##   if the system does not support the named pipes.  1 if the background
 ##   process failed to be started.
 ##

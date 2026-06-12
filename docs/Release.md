@@ -87,7 +87,7 @@ tar xJf ble-0.3.4.tar.xz -C ~/.local/share/blesh
 - edit (`kill-forward-logical-line`): fix a bug not deleting newline at the end of the line `#D1443` 2a8a7f6 (master: 09cf7f1)
 - global: work around bash-4.2 bug of `declare -gA` (reported by 0xC0ncord) `#D1470` 2f85ed3 (master: 8856a04)
 - global: fix declaration of associative arrays for `ble-reload` (reported by 0xC0ncord) `#D1471` 422de69 (master: 3cae6e4)
-- util (`ble/util/msleep`): fix hang in Cygwin by swithing from `/dev/udp/0.0.0.0/80` to `/dev/zero` `#D1452` 5ace564 (master: d4d718a)
+- util (`ble/util/msleep`): fix hang in Cygwin by switching from `/dev/udp/0.0.0.0/80` to `/dev/zero` `#D1452` 5ace564 (master: d4d718a)
 - syntax: fix broken AST with `[[` keyword `#D1454` 1d48e79 (master: 69658ef)
 - benchmark (`ble-measure`): work around a locale-dependent decimal point of `EPOCHREALTIME` (reported by 3ximus) `#D1460` f3833ad (master: 1aa471b)
 - util (`ble/util/msleep`): work around the bash-4.3 bug of `read -t` (reported by 3ximus) `#D1468` `#D1469` 70797cf (master: 4ca9b2e)
@@ -99,14 +99,14 @@ tar xJf ble-0.3.4.tar.xz -C ~/.local/share/blesh
 - decode: fix a hang on attach failure by cache corruption `#D1531` d4b0700 (master: 24ea379)
 - progcomp: fix non-working `complete -C prog` (reported by Archehandoro) `#D1535` 47b3ade (master: 026432d)
 - bind: fix a problem that `bind '"seq":"key"'` causes a loop macro `bind -s key key` (reported by thanosz) `#D1536` e2a502d (master: ea05fc5)
-- main: work around `. ble.sh --{test,update,clear-cache}` in intereactive sessions `#D1555` 500915f (master: bbc2a90)
+- main: work around `. ble.sh --{test,update,clear-cache}` in interactive sessions `#D1555` 500915f (master: bbc2a90)
 - main: fix reloading after ble-update (fixup 500915f (master: bbc2a90)) (fixed by oc1024) `#D1558` 9372670
 - main: fix exit status for `bash ble.sh --test` (fixup 500915f (master: bbc2a90)) `#D1558` 641238a
 - main: work around sourcing `ble.sh` inside subshells `#D1554` 500915f (master: bbc2a90)
 - global: use a better workaround of bash-4.2 `declare -gA` by separating assignment `#D1567` 40827ef (master: 2408a20)
 - util: work around bash-3.0 bug `"${scal[@]/xxx}"` `#D1570` 7e10cf4 (master: 24f79da)
 - syntax: fix a bug that argument completion is attempted in nested commands (reported by huresche) `#D1579` 6987ae8 (master: 301d40f)
-- edit (brackated-paste): fix incomplete `CR => LF` conversion (reported by alborotogarcia) `#D1587` 2651c8e (master: 8d6da16)
+- edit (bracketed-paste): fix incomplete `CR => LF` conversion (reported by alborotogarcia) `#D1587` 2651c8e (master: 8d6da16)
 - main (adjust-bash-options): adjust `LC_COLLATE=C` `#D1588` 94cc9d2 (master: e87ac21)
 - highlight (`layer:region`): fix blocked lower-layer changes without selection changes `#D1596` d40d42a (master: 5ede3c6)
 - complete (`auto-menu`): fix sleep loops by clock/sclock difference `#D1597` 0abc15b (master: 53dd018)
@@ -149,7 +149,7 @@ tar xJf ble-0.3.4.tar.xz -C ~/.local/share/blesh
 - edit (`ble/textarea#render`): fix interleaving outputs to `_ble_util_buffer` and `DRAW_BUFF` `#D1987` 62519a7 (master: 6d61388)
 - keymap/vi (`operator:filter`): do not append newline at the end of line `#D1994` 8207d4f (master: bce2033)
 - keymap/vi (`expand-range-for-linewise-operator`): fix the end point being not extended `#D1994` 8207d4f (master: bce2033)
-- syntax: fix unrecognized asignment `echo arr[i]+=rhs` [sabbrev: apply sabbrev to right-hand sides of variable assignments] `#D2007` 948f50f (master: 41faa494)
+- syntax: fix unrecognized assignment `echo arr[i]+=rhs` [sabbrev: apply sabbrev to right-hand sides of variable assignments] `#D2007` 948f50f (master: 41faa494)
 
 ## Changes
 - syntax: exclude <code>\\ + LF</code> at the word beginning from words (motivated by cmplstofB) `#D1431` 1b00fd2 (master: 67e62d6)
@@ -192,7 +192,7 @@ tar xJf ble-0.3.4.tar.xz -C ~/.local/share/blesh
 - global: work around empty `vi_imap` cache by `tmux-resurrect` `#D1562` d7d2a23 (master: 560160b)
 - decode: identify `kitty` and treat `\e[27u` as isolated ESC (reported by lyiriyah) `#D1585` 2f7404e (master: c2a84a2)
 - complete: suppress known error messages of `bash-completion` (reported by oc1024, Lun4m) `#D1622` 558322c (master: d117973)
-- util (`modifyOtherKeys`): update the workaround for a new quiark of kitty `#D1627` 90d9284 (master: 3e4ecf5)
+- util (`modifyOtherKeys`): update the workaround for a new quirk of kitty `#D1627` 90d9284 (master: 3e4ecf5)
 - main: work around `set -B` and `set -k` `#D1628` 55494eb (master: a860769)
 - term: disable `modifyOtherKeys` and do not send `DA2` for `st` (requested by Shahabaz-Bagwan) `#D1632` 7e08766 (master: 92c7b26)
 - cmap: add `st`-specific escape sequences for cursor keys `#D1633` 1391c90 (master: acfb879)
@@ -327,7 +327,7 @@ tar xJf ble-0.2.7.tar.xz -C ~/.local/share/blesh
 - edit (`kill-forward-logical-line`): fix a bug not deleting newline at the end of the line `#D1443` 03787a2d (master: 09cf7f14)
 - global: work around bash-4.2 bug of `declare -gA` (reported by 0xC0ncord) `#D1470` a2ace444 (master: 8856a04f)
 - global: fix declaration of associative arrays for `ble-reload` (reported by 0xC0ncord) `#D1471` 533eba77 (master: 3cae6e4d)
-- util (`ble/util/msleep`): fix hang in Cygwin by swithing from `/dev/udp/0.0.0.0/80` to `/dev/zero` `#D1452` 46992e79 (master: d4d718ab)
+- util (`ble/util/msleep`): fix hang in Cygwin by switching from `/dev/udp/0.0.0.0/80` to `/dev/zero` `#D1452` 46992e79 (master: d4d718ab)
 - syntax: fix broken AST with `[[` keyword `#D1454` 0482bf64 (master: 69658efc)
 - util (`ble/util/msleep`): work around the bash-4.3 bug of `read -t` (reported by 3ximus) `#D1468` `#D1469` fad78ea5 (master: 4ca9b2e2)
 - bind: work around broken `cmd_xmap` after switching the editing mode `#D1478` 97ca1171 (master: 8d354c1b)
@@ -336,12 +336,12 @@ tar xJf ble-0.2.7.tar.xz -C ~/.local/share/blesh
 - syntax: fix a bug that `eval() { :; }`, `declare() { :; }` are not treated as function definition `#D1529` a4cda9c3 (master: b4290958)
 - decode: fix a hang on attach failure by cache corruption `#D1531` a4c13ab8 (master: 24ea3792)
 - benchmark (`ble-measure`): fix a bug that the result is always 0 in Bash 3 and 4 (fixup 8eb493a9 (master: bbc2a904)) `#D1615` a034c91
-- main: work around `. ble.sh --{test,update,clear-cache}` in intereactive sessions `#D1555` 8eb493a9 (master: bbc2a904)
+- main: work around `. ble.sh --{test,update,clear-cache}` in interactive sessions `#D1555` 8eb493a9 (master: bbc2a904)
 - main: fix reloading after ble-update (fixup 8eb493a9 (master: bbc2a904)) (fixed by oc1024) `#D1558` 9372670
 - main: fix exit status for `bash ble.sh --test` (fixup 8eb493a9 (master: bbc2a904)) `#D1558` 641238a
 - main: work around sourcing `ble.sh` inside subshells `#D1554` 8eb493a9 (master: bbc2a904)
 - global: use a better workaround of bash-4.2 `declare -gA` by separating assignment `#D1567` 0b7de999 (master: 2408a207)
-- edit (brackated-paste): fix incomplete `CR => LF` conversion (reported by alborotogarcia) `#D1587` ac738bb4 (master: 8d6da161)
+- edit (bracketed-paste): fix incomplete `CR => LF` conversion (reported by alborotogarcia) `#D1587` ac738bb4 (master: 8d6da161)
 - highlight (`layer:region`): fix blocked lower-layer changes without selection changes `#D1596` 650140ff (master: 5ede3c69)
 - util: work around the Bash 3 bug of array assignments with `^A` and `^?` in Bash 3.2 `#D1614` 0ed7f6dc (master: b9f76118)
 - benchmark (`ble-measure`): fix a bug that the result is always 0 in Bash 3 and 4 (fixup bbc2a904) `#D1615` 28e8dfed (master: a034c91a)
@@ -363,7 +363,7 @@ tar xJf ble-0.2.7.tar.xz -C ~/.local/share/blesh
 - bind: fix <kbd>M-C-@</kbd>, <kbd>C-x C-@</kbd>, and <kbd>M-C-x</kbd> (`bash-4.2 -o emacs`) `#D1920` 342826f3 (master: a410b038)
 - keymap/vi (`operator:filter`): do not append newline at the end of line `#D1994` 2a8e746f (master: bce20339)
 - keymap/vi (`expand-range-for-linewise-operator`): fix the end point being not extended `#D1994` 2a8e746f (master: bce20339)
-- syntax: fix unrecognized asignment `echo arr[i]+=rhs` [sabbrev: apply sabbrev to right-hand sides of variable assignments] `#D2006` 4ed4fd4f (master: 41faa494)
+- syntax: fix unrecognized assignment `echo arr[i]+=rhs` [sabbrev: apply sabbrev to right-hand sides of variable assignments] `#D2006` 4ed4fd4f (master: 41faa494)
 - syntax: fix unrecognized variable assignment of the form `echo arr[i]+=rhs` `#D2007` 4ed4fd4f (master: 41faa494)
 
 ## Changes
@@ -410,7 +410,7 @@ tar xJf ble-0.2.7.tar.xz -C ~/.local/share/blesh
 - main: resolve empty `HOSTNAME` [add `histdb`] `#D1925` 5812f2ef (master: 44d9e104)
 - main: warn empty `LANG` [main: support an option `--inputrc={diff,all,user,none}`] `#D1926` 3f29bee3 (master: 92f20063)
 - main: never load `/etc/inputrc` in openSUSE (motivated by Ultra980) `#D1926` 3f29bee3 (master: 92f20063) 0ceb0cb
-- main: show warning for empty locale (movivated by Ultra980) `#D1927` 3f29bee3 (master: 92f20063)
+- main: show warning for empty locale (motivated by Ultra980) `#D1927` 3f29bee3 (master: 92f20063)
 - term (`terminology`): work around terminal glitches `#D1946` 2d4caa67 (master: 9a1b4f9f)
 - edit: always adjust the terminal states with `bind -x` (reported by linwaytin) `#D1983` cdda7c44 (master: 5d14cf17)
 - syntax: suppress brace expansions in designated array initialization in Bash 5.3 `#D1989` 78dd47ee (master: 1e7b884d)
@@ -488,7 +488,7 @@ tar xJf ble-0.1.15.tar.xz -C ~/.local/share/blesh
 - edit (sword): fix definition of `sword` (shell words) `#D1441` 03980f1 (master: f923388)
 - bind: work around broken `cmd_xmap` after switching the editing mode `#D1478` 847e602 (master: 8d354c1)
 - benchmark (`ble-measure`): fix a bug that the result is always 0 in Bash 3 and 4 (fixup 4759768 (master: bbc2a90)) `#D1615` a034c91
-- main: work around `. ble.sh --{test,update,clear-cache}` in intereactive sessions `#D1555` 4759768 (master: bbc2a90)
+- main: work around `. ble.sh --{test,update,clear-cache}` in interactive sessions `#D1555` 4759768 (master: bbc2a90)
 - main: fix reloading after ble-update (fixup 4759768 (master: bbc2a90)) (fixed by oc1024) `#D1558` 9372670
 - main: fix exit status for `bash ble.sh --test` (fixup 4759768 (master: bbc2a90)) `#D1558` 641238a
 - main: work around sourcing `ble.sh` inside subshells `#D1554` 4759768 (master: bbc2a90)
@@ -665,7 +665,7 @@ tar xJf ble-0.3.3.tar.xz -C ~/.local/share/blesh
 - main: fix a bug that `~/.config/blesh/init.sh` is not detected (GitHub #53 by rux616) 9f74da6 (master: 61f9e10)
 - util (`ble/string#to{upper,lower}`): work around `LC_COLLATE=en_US.utf8` (test-util) `#D1341` 5d9aa64 (master: 1f6b44e) `#D1355` 4e67719 (master: 4da6103)
   - fixup 5d9aa64 fef40eb (master: N/A)
-- util (encoding, keyseq): fix miscelleneous encoding bugs (test-util) 6d72d2a (master: 435bd16)
+- util (encoding, keyseq): fix miscellaneous encoding bugs (test-util) 6d72d2a (master: 435bd16)
 - edit: work around `WINCH` not updating `COLUMNS`/`LINES` after `ble-reload` `#D1345` e2d54a2 (master: a190455)
 - complete: initialize `bleopt complete_menu_style` options before `complete_load` hook (reported by rux616) `#D1352` 15ba24f (master: 8a9a386)
 - main: fix problems caused by multiple `source ble.sh` in bashrc `#D1354` 983e8a9 (master: 5476933)
@@ -676,12 +676,12 @@ tar xJf ble-0.3.3.tar.xz -C ~/.local/share/blesh
 - complete: fix bugs that quotation disappears on ambiguous completion `#D1387` 048f17e (master: 98576c7)
 - complete: fix a bug that progcomp retry by 124 caused the default completion again `#D1386` 048f17e (master: 98576c7)
 - syntax (tree-enumerate): fix unmodified `wtype` of reconstructed words at the end `#D1385` 048f17e (master: 98576c7)
-- complete: fix superlinear performace of ambiguous matching globpat `#D1389` bd4657a (master: 71afaba)
-- prompt: fix a bug that lonig rps1 is not correctly turned off `#D1401` 9266961 (master: d84bcd8)
+- complete: fix superlinear performance of ambiguous matching globpat `#D1389` bd4657a (master: 71afaba)
+- prompt: fix a bug that long rps1 is not correctly turned off `#D1401` 9266961 (master: d84bcd8)
 - prompt: fix extra spaces on line folding before double width character `#D1400` 9266961 (master: d84bcd8)
 - syntax (glob bracket expression): fix a bug of unsupported POSIX brackets `#D1402` e1eca65 (master: 6fd9e22)
 - syntax (`ble/syntax:bash/simple-word/evaluate-path-spec`): fix a bug of unrecognized `[!...]` and `[^...]` `#D1403` 50fcd03 (master: 0b842f5)
-- highlight: fix remaininig highlighting of vanishing words `#D1421` `#D1422` 0f85719 (master: 1066653)
+- highlight: fix remaining highlighting of vanishing words `#D1421` `#D1422` 0f85719 (master: 1066653)
 - highlight: fix unhighlighted tilde expansions `~+` (reported by cmplstofB) `#D1424` 1f9abf6 (master: a32962e)
 - complete: fix a problem that the user setting `dotglob` is changed `#D1425` e26867d (master: 987436d)
 - complete: fix a problem of redundant unmatched ambiguous part with tilde expansions in the common prefix `#D1417` 20cb6af (master: 5777d7f)
@@ -690,7 +690,7 @@ tar xJf ble-0.3.3.tar.xz -C ~/.local/share/blesh
 
 ## Compatibility
 
-- msys2: support2 MSYS (motivated by SUCHMOKUO) `#D1264` 500e051 (master: 47e2863)
+- msys2: support MSYS2 (motivated by SUCHMOKUO) `#D1264` 500e051 (master: 47e2863)
   - edit: support `\$` in `PS1` for MSYS2 `#D1265` b8c2ca6 (master: f6f8956)
   - edit: fixup b8c2ca6 fe78bd6 (master: N/A)
   - msys2: work around MSYS2 Bash bug of missing <kbd>CR</kbd> `#D1270` 8c09190 (master: 71f3498)
@@ -735,16 +735,16 @@ tar xJf ble-0.3.3.tar.xz -C ~/.local/share/blesh
 - util (`ble-stackdump`): fix a shift of line numbers `#D1337` b597e90 (master: a14b72f)
 - edit (`ble-bind -x`): check range of `READLINE_{POINT,MARK}` `#D1339` 47a93e8 (master: efe1e81)
 - util (`ble/string#to{upper,lower}`): work around `LC_COLLATE=en_US.utf8` (test-util) `#D1341` 5b32621 (master: 1f6b44e) `#D1355` b38ef10 (master: 4da6103)
-- util (encoding, keyseq): fix miscelleneous encoding bugs (test-util) 03c0b44 (master: 435bd16)
+- util (encoding, keyseq): fix miscellaneous encoding bugs (test-util) 03c0b44 (master: 435bd16)
 - edit: work around `WINCH` not updating `COLUMNS`/`LINES` after `ble-reload` `#D1345` 50af6a5 (master: a190455)
 - syntax: allow single-character variable name in named redirections `{a}<>` `#D1360` f81734f (master: 4760409)
 - syntax (glob bracket expression): fix a bug of unsupported POSIX brackets `#D1402` b7ea892 (master: 6fd9e22)
-- highlight: fix remaininig highlighting of vanishing words `#D1421` `#D1422` cc5e4d1 (master: 1066653)
+- highlight: fix remaining highlighting of vanishing words `#D1421` `#D1422` cc5e4d1 (master: 1066653)
 - highlight: fix unhighlighted tilde expansions `~+` (reported by cmplstofB) `#D1424` 3f7f044 (master: a32962e)
 
 ## Compatibility
 
-- msys2: support2 MSYS (motivated by SUCHMOKUO) `#D1264` 7cf81c0 (master: 47e2863)
+- msys2: support MSYS2 (motivated by SUCHMOKUO) `#D1264` 7cf81c0 (master: 47e2863)
   - edit: support `\$` in `PS1` for MSYS2 `#D1265` 8f44624 (master: f6f8956)
   - msys2: work around MSYS2 Bash bug of missing <kbd>CR</kbd> `#D1270` bbe1b61 (master: 71f3498)
 - edit (`ble/widget/bracketed-paste`): fix error messages on `paste_end` in older version of Bash (test-util) a80f1d1 (master: b2c7d1c)
@@ -776,15 +776,15 @@ tar xJf ble-0.3.3.tar.xz -C ~/.local/share/blesh
 - util (`ble-stackdump`): fix a shift of line numbers `#D1337` 5d5b86b (master: a14b72f)
 - edit (`ble-bind -x`): check range of `READLINE_{POINT,MARK}` `#D1339` 6909cc0 (master: efe1e81)
 - util (`ble/string#to{upper,lower}`): work around `LC_COLLATE=en_US.utf8` (test-util) `#D1341` 31476cc (master: 1f6b44e) `#D1355` 65cab5c (master: 4da6103)
-- util (encoding, keyseq): fix miscelleneous encoding bugs (test-util) 11d8db7 (master: 435bd16)
+- util (encoding, keyseq): fix miscellaneous encoding bugs (test-util) 11d8db7 (master: 435bd16)
 - edit: work around `WINCH` not updating `COLUMNS`/`LINES` after `ble-reload` `#D1345` e15c5a6 (master: a190455)
 - syntax: allow single-character variable name in named redirections `{a}<>` `#D1360` 6bbed24 (master: 4760409)
-- highlight: fix remaininig highlighting of vanishing words `#D1421` `#D1422` bf8fdc8 (master: 1066653)
+- highlight: fix remaining highlighting of vanishing words `#D1421` `#D1422` bf8fdc8 (master: 1066653)
 
 ## Compatibility
 
 - global: work around Bash 3.2 bug of array initialization with <kbd>SOH</kbd>/<kbd>DEL</kbd> `#D1238` 566f53e (master: defdbd4) `#D1241`
-- msys2: support2 MSYS (motivated by SUCHMOKUO) `#D1264` 19a36ea (master: 47e2863)
+- msys2: support MSYS2 (motivated by SUCHMOKUO) `#D1264` 19a36ea (master: 47e2863)
   - edit: support `\$` in `PS1` for MSYS2 `#D1265` 8658738 (master: f6f8956)
   - msys2: work around MSYS2 Bash bug of missing <kbd>CR</kbd> `#D1270` b72c063 (master: 71f3498)
 - decode: fix a bug of broken cmap cache found in ble-0.3 `#D1327` fc6ded3 (master: 16b56bf)

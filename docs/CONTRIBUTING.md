@@ -6,20 +6,20 @@
 
 You can freely create an issue using the following links:
 
-- Report and fixes for bugs and performance issues [[Here]](https://github.com/akinomyoga/ble.sh/issues/new?template=00_T1-bug_report.md)
-- Questions on usage [[Here]](https://github.com/akinomyoga/ble.sh/issues/new?template=00_T2-feature_request.md)
-- Feature request [[Here]](https://github.com/akinomyoga/ble.sh/issues/new?template=00_T3-help.md)
+- Reports and fixes for bugs and performance issues [[Here]](https://github.com/akinomyoga/ble.sh/issues/new?template=00_T1-bug_report.md)
+- Questions on usage [[Here]](https://github.com/akinomyoga/ble.sh/issues/new?template=00_T3-help.md)
+- Feature requests [[Here]](https://github.com/akinomyoga/ble.sh/issues/new?template=00_T2-feature_request.md)
 - Others (suggestions, projects, discussion, complaints, news, information or anything) [[Here]](https://github.com/akinomyoga/ble.sh/issues/new?template=00_T4-free_style.md)
 
 ### Pull requests
 
 We always welcome the following types of pull requests. Any changes will be considered to be provided under the BSD 3-Clause License.
-If you do not know whether your changes would be appropriate for merge, please feel free to create a pull request and let us talk with each other!
+If you do not know whether your changes would be appropriate for merge, please feel free to create a pull request and discuss with us!
 
 - Better translation to English, typo fixes
 - Fixes, optimization, test cases
 - New features
-- New color themes ... We accept new themes in [`contrib`](https://github.com/akinomyoga/blesh-contrib/pulls) repository.
+- New color themes ... We accept new themes in the [`contrib`](https://github.com/akinomyoga/blesh-contrib/pulls) repository.
 - Others
 
 ### Wiki
