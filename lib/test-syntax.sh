@@ -52,7 +52,7 @@ ble/test/start-section 'ble/syntax' 30
     sources=()
     ble/util/conditional-sync '
       ble/syntax/completion-context/generate "$input" "${#input}"
-      echo "${sources[*]}"
+      ble/util/print "${sources[*]}"
     ' true '' timeout=100
   }
   func=ble/test:syntax/completion-context

@@ -594,12 +594,14 @@ function sub:scan/check-readonly-unsafe {
       # Exceptions in each file
       /^\.\/ble.pp:[0-9]*:BLEOPT=$/d
       /^\.\/ble.pp:[0-9]*:\/assign (USER|HOSTNAME)/d
+      /^\.\/ble.pp:[0-9]*:OSTYPE=$/d
       /^\.\/lib\/core-complete.sh:[0-9]+:KEY=$/d
       /^\.\/lib\/core-syntax.sh:[0-9]+:VAR=$/d
       /^\.\/lib\/init-(cmap|term).sh:[0-9]+:TERM=$/d
       /^\.\/src\/edit.sh:[0-9]+:_dirty=$/d
       /^\.\/src\/history.sh:[0-9]+:_history_index=$/d
       /^\.\/src\/util.sh:[0-9]+:(NAMEI|OPEN|TERM)=$/d
+      /^\.\/src\/util.sh:[0-9]*:OSTYPE=$/d
       /^\.\/lib\/core-cmdspec.sh:[0-9]+:OLD=$/d
       /^\.\/contrib\/config\/readline.bash:[0-9]+:_abell=$/d
 
@@ -823,6 +825,7 @@ function sub:scan {
   sub:scan/builtin 'true' --exclude=./ble.pp |
     sed -E 'h;s/'"$_make_rex_escseq"'//g;s/^[^:]*:[0-9]+:[[:blank:]]*//
       \Zble/cmdspec/opts .* : false trueZd
+      \Z'\'' true '\'\'' timeout=100Zd
       \Z# true colorZd
       g'
   sub:scan/builtin 'false' --exclude=./ble.pp |

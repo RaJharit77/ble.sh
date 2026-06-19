@@ -1706,6 +1706,23 @@ function ble/prompt/.instantiate {
   local ps=$1 opts=$2 x0=$3 y0=$4 g0=$5 lc0=$6 lg0=$7 esc0=$8 trace_hash0=$9
   [[ ! $ps ]] && return 0
 
+  if [[ $OSTYPE == cygwin ]]; then
+    # Note #D2412: Cygwin 3.6.9 (and possibly also 3.6.8) has a bug that the
+    # CPR responses are not correctly received when a non-Cygwin executable
+    # file is started after the corresponding DSR(6) request is sent.  This is
+    # caused by some handling of pseudoconsole.  To workaround the issue, we
+    # may turn off the pseudoconsole before starting the non-Cygwin executable
+    # file.
+    local -x CYGWIN="${CYGWIN:+$CYGWIN }disable_pcon"
+
+    # The same issue happens with recent versions of MSYS2.  However, it is
+    # sufficient to check that OSTYPE is "cygwin" because OSTYPE is "cygwin" in
+    # the affected versions of MSYS2, though I'm not sure if it is intentional
+    # or a recent bug in Bash's config.guess.  In the case of MSYS2, we need to
+    # set the environment variable MSYS instead of CYGWIN.
+    local -x MSYS="${MSYS:+$MSYS }disable_pcon"
+  fi
+
   local expanded=
   if ble/prompt/.uses-builtin-prompt-expansion "$ps"; then
     [[ $ps == *'\'[wW]* ]] && ble/prompt/unit/add-hash '$PWD'
