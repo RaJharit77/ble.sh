@@ -8218,6 +8218,61 @@ bash_tips
     Done (実装ログ)
 -------------------------------------------------------------------------------
 
+2026-06-21
+
+  * term: ghostty 及び zellij で kitty_keyboard_protocol を優先する (reported by Okeanos, allpan3) [#D2413]
+    https://github.com/akinomyoga/ble.sh/issues/662
+    https://github.com/akinomyoga/ble.sh/issues/707
+
+    ghostty の modifyOtherKeys 実装は変な振る舞いをする。というか、macOS におい
+    て Alt+7 を使って入力した "|" に対して、"Alt が押されていた" という事実を以
+    て、実際には M-| が送信されている。一方で kitty keyboard protocol の場合に
+    は Meta は既に consume されたとして単に "|" が期待通りに送信される。これは
+    或る意味元の xterm に忠実と言えば忠実である。
+
+    zelilj に関してはそもそも kitty's keyboard protocol にしか対応していない様
+    な気がする。外側の端末が kitty に対応しているかどうかを関知するのかどうか確
+    かめていないが、なんか対応していないんじゃないかという予感がする。Rust 製で、
+    ratatui を使っている、もしくは参考にしているのだとしたら kitty keyboard
+    protocol しか知らない & 他無視というのは十分に考えられる。
+
+    * ghostty の terminal identification は微妙である。先ず TERM=xterm-ghostty
+      が設定されている。但し、これは勿論 tmux/screen 等の中からは判定ができない。
+      一方で zellij は外側の端末の TERM を保持する様である。とは言え、zellij に
+      関してはもし完全に抽象化できているのだとすればわざわざ外側の端末の影響を
+      検出する必要性はない。
+
+      ghostty の DA2 応答は、数あるユーザーからの ble summary から抜き出すに一
+      貫して 1;10;0 の様である。Windows Terminal と同じ? と思ったが、Windows
+      Terminal は 0;10;1 で逆だった。今のところ、1;10;0 の様なシーケンスを送る
+      端末は ghostty しか存在しない気がする。VTE が過去に 1;<ver>;0 を使ってい
+      たが、ver >= 803 でしか対応していないので overlap はない。
+
+      * TERM=xterm-ghostty も使おうかと思ったが DA2 1;10;0 の時点でほぼ一意と言っ
+        て良いので TERM は使わない事にする。何より DA2 は偽装不可能なので信用で
+        きる。
+
+      * DA2 が 1;10:0 である事ををソースコード上で確認する事は可能だろうか。OK
+        確認した。最s初に実装した時からずっと 1;10;0 の様である。ハードコードさ
+        れている。
+
+    * 他に terminal identification を更新しなければならない物はないか確認したが、
+      見た限りは特に問題はないような気がしている。
+
+    * zellij は pass-through を実装しているだろうかと思って探したがよく分からな
+      い。issue は立っているが実装されていない様な気がする。pass-through
+      sequence は実装せずに、pass-through したいシーケンス毎に新しく対応してい
+      る様に見える。余り実装には期待できない気がする。
+
+      https://github.com/zellij-org/zellij/issues/775#issuecomment-2420352196
+      https://github.com/zellij-org/zellij/issues/3954
+
+    * done: うーん。今の実装で本当に正しいのかよく分からなくなった。取り敢えず
+      一番内側が zellij の時にはそのまま kitty protocol を用いれば良い。しかし、
+      zellij の中で screen/tmux が動いている場合には、実は一番外側ではなくて
+      zellij に対して kitty keyboard protocol を送信するべきなのでは → この場
+      合にも対応した。
+
 2026-06-20
 
   * 2026-05-28 msys2: 初期化時に unbound keyseq M-f13 等のメッセージが出る [#D2412]

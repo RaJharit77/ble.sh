@@ -283,6 +283,7 @@
 - mandb: support the man-page sources compressed with .zst (motivated by HalFrgrd) `#D2410` 2c350270
 - mandb: adjust man page parsing for `ffmpeg` (reported by SuggonM) `#D2411` f0087189
 - canvas: work around Cygwin 3.6.0 pcon bug `#D2412` xxxxxxxx
+- term: use the kitty keyboard protocol in Ghostty and Zellij (reported by Okeanos, allpan3) `#D2413` xxxxxxxx
 
 ## Contrib
 

@@ -7439,8 +7439,8 @@ function ble/term/DA2/initialize-term {
     if ((da2r_vec[1]>=3000)); then
       # Zellij seems to use the same range as Alacritty with the same scheme,
       # which makes it essentially difficult to differentiate it from
-      # Alacritty.  Zellij has introduce DA2 in PR [1], whose primary purpose
-      # was cursor position, etc.  The design of its DA2 was not specifically
+      # Alacritty.  Zellij has introduced DA2 in PR [1], whose primary purpose
+      # was a cursor position, etc.  The design of its DA2 was not specifically
       # discussed/mentioned.  The first release with the support for DA2 report
       # was 0.10.0 [2], so the minimum value by Zellij would be 1000, which
       # clearly conflicts with the recent versions of Alacritty.  We currently
@@ -7456,6 +7456,14 @@ function ble/term/DA2/initialize-term {
       # https://github.com/alacritty/alacritty/blob/4734b2b8/alacritty_terminal/src/term/mod.rs#L3104
       _ble_term_TERM[depth]=alacritty:$((da2r_vec[1]))
     fi ;;
+  ('1;10;0')
+    # Ghostty - The first implementation of DA2 seems to have been introduced
+    # in [1] in Termio.zig, and soon moved to stream_handler.zig [2]. This
+    # predates version 1.0.0.  Since then, it has always been 1;10;0 till now.
+    #
+    # [1] 1.0.0 (2024-07-14) https://github.com/ghostty-org/ghostty/blob/c4484938c565030bd10b10a77a8e80602e3001ca/src/termio/Termio.zig#L2411
+    # [2] 1.0.0 (2024-07-14) https://github.com/ghostty-org/ghostty/blob/4749c4e93731067049bfbf2e4572061cef2bdd17/src/termio/stream_handler.zig#L847
+    _ble_term_TERM[depth]=ghostty:10000 ;;
   ('1;0'?????';0')
     _ble_term_TERM[depth]=foot:${da2r:3:5} ;;
   ('1;'*)
@@ -7592,23 +7600,39 @@ function ble/term/DA2/notify {
 ##
 function ble/term/quote-passthrough {
   local seq=$1 level=${2:-$((${#_ble_term_DA2R[@]}-1))} opts=$3
+  [[ $seq ]] || return 1
+
   local all=; [[ :$opts: == *:all:* ]] && all=1
   ret=$seq
-  [[ $seq ]] || return 0
   local i
   for ((i=level;--i>=0;)); do
-    if [[ ${_ble_term_TERM[i]} == tmux:* ]]; then
+    case ${_ble_term_TERM[i]} in
+    (tmux:*)
       # Note: tmux では pass-through seq の中に含まれる \e は \e\e の様に
       # escape する。
-      ret=$'\ePtmux;'${ret//$'\e'/$'\e\e'}$'\e\\'${all:+$seq}
-    else
+      ret=$'\ePtmux;'${ret//$'\e'/$'\e\e'}$'\e\\'${all:+$seq} ;;
+    (zellij:*)
+      # Note: Zellij doesn't seem to support the passthrough sequence.  Rather,
+      # it seems to pass through each of the requested sequence in the raw
+      # form.  At least, there does not seem to be any movement in supporting
+      # the general pass-through sequence [1].
+      #
+      # [1] https://github.com/zellij-org/zellij/issues/3954
+      #
+      # Therefore, when Zellij sits in the middle, it is impossible to reach
+      # outer terminals.  We give up quoting the sequence and return an empty
+      # string.
+      ret=
+      return 1 ;;
+    (*)
       # Note: screen は、最初に現れる \e\\ で pass-through sequence が終わって
       # しまうので単純に pass-through sequence を入れ子にはできない。なので、例
       # えば "\ePXXX\e\\YYY" を pass-through する時には、\e と \\ の間で
       # [\ePXXX\e][\\YYY] の様に分割して、それぞれ pass-through する。
-      ret=$'\eP'${ret//$'\e\\'/$'\e\e\\\eP\\'}$'\e\\'${all:+$seq}
-    fi
+      ret=$'\eP'${ret//$'\e\\'/$'\e\e\\\eP\\'}$'\e\\'${all:+$seq} ;;
+    esac
   done
+  return 0
 }
 
 _ble_term_DECSTBM=
@@ -7701,18 +7725,32 @@ function ble/term/modifyOtherKeys/.update {
       else
         method=kitty_modifyOtherKeys
       fi ;;
+    (ghostty:*|zellij:*)
+      method=kitty_keyboard_protocol ;;
     (screen:*|tmux:*)
       method=modifyOtherKeys
 
-      if [[ $bleopt_term_modifyOtherKeys_passthrough_kitty_protocol ]]; then
-        # Note (#D1843): if the outermost terminal is kitty-0.23+, we directly
-        #   send keyboard-protocol sequences to the outermost kitty.
-        local index=$((${#_ble_term_TERM[*]}-1))
-        if [[ ${_ble_term_TERM[index]} == kitty:* ]]; then
+      if [[ ${#_ble_term_TERM[@]} -ge 2 && $bleopt_term_modifyOtherKeys_passthrough_kitty_protocol ]]; then
+        # Skip the multiplexers not supporting the kitty keyboard protocol.
+        local depth
+        for ((depth=1;depth<${#_ble_term_TERM[@]};depth++)); do
+          case ${_ble_term_TERM[depth]} in
+          (screen:*|tmux:*) ;;
+          (*) break ;;
+          esac
+        done
+
+        # Note (#D1843): if the outer terminal supports the kitty keyboard
+        #   protocol (e.g., kitty-0.23+, Zellij, and Ghostty), we directly send
+        #   the kitty-keyboard-protocol sequences to the outer terminal.
+        case ${_ble_term_TERM[depth]-} in
+        (kitty:*)
           local da2r_vec
           ble/string#split da2r_vec ';' "${_ble_term_DA2R[index]}"
-          ((da2r_vec[2]>=23)) && method=kitty_keyboard_protocol
-        fi
+          ((da2r_vec[2]>=23)) && method=kitty_keyboard_protocol ;;
+        (ghostty:*|zellij:*)
+          method=kitty_keyboard_protocol ;;
+        esac
       fi ;;
     (*)
       method=modifyOtherKeys
@@ -7774,26 +7812,39 @@ function ble/term/modifyOtherKeys/.update {
       ((previous>=2)) || seq=$'\e[>1u' ;;
     esac
     if [[ $seq ]]; then
-      # Note (#D1843): we directly send kitty-keyboard-protocol sequences to
-      #   the outermost terminal.
-      local ret
-      ble/term/quote-passthrough "$seq"
-      ble/util/buffer "$ret"
+      # If this is inside a terminal multiplexer, skip the multiplexers not
+      # supporting the kitty keyboard protocol.
+      local depth
+      for ((depth=0;depth<${#_ble_term_TERM[@]};depth++)); do
+        case ${_ble_term_TERM[depth]} in
+        (screen:*|tmux:*) ;;
+        (*) break ;;
+        esac
+      done
 
-      # find innermost tmux and adjust its modifyOtherKeys state (do not care
-      # about screen which is transparent for the user input keys)
+      # Find the innermost tmux, if any, and adjust its modifyOtherKeys state
+      # (do not care about screen, which is transparent for the user input
+      # keys).
+      # Note: For tmux not to affect the outer terminal's keyboard protocol, we
+      # set up tmux's modifyOtherKeys before sending the
+      # kitty-keyboard-protocol sequence to the outer terminal.
       local level
-      for ((level=1;level<${#_ble_term_TERM[@]}-1;level++)); do
+      for ((level=1;level<depth;level++)); do
         [[ ${_ble_term_TERM[level]} == tmux:* ]] || continue
         case $state in
         (0) seq=$'\e[>4;0m\e[m' ;;
         (1) seq=$'\e[>4;1m\e[m' ;;
         (2) seq=$'\e[>4;1m\e[>4;2m\e[m' ;;
         esac
-        ble/term/quote-passthrough "$seq" "$level"
-        ble/util/buffer "$ret"
+        ble/term/quote-passthrough "$seq" "$level" &&
+          ble/util/buffer "$ret"
         break
       done
+
+      # Note (#D1843): we directly send kitty-keyboard-protocol sequences to
+      # the outer terminal that supports the kitty keyboard protocol.
+      ble/term/quote-passthrough "$seq" "$depth"
+      ble/util/buffer "$ret"
     fi
     return 0 ;;
   (disabled)
